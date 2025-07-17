@@ -1,7 +1,4 @@
 # Service-Request-Handling-Project
- vfjghjhkj
-
-lahari
 
 ## Activity Diagram 
 ```mermaid
@@ -298,4 +295,54 @@ CREATE TABLE RequestUpdates (
     FOREIGN KEY (RequestID) REFERENCES ServiceRequests(RequestID),
     FOREIGN KEY (UpdatedBy) REFERENCES Users(UserID)
 );
+
+
+
+
+com.yourcompany.servicerequest
+│
+├── controller
+│   ├── AuthController.java
+│   ├── AdminController.java
+│   ├── EmployeeController.java
+│   └── DepartmentController.java
+│
+├── service
+│   ├── UserService.java
+│   ├── AdminService.java
+│   ├── EmployeeService.java
+│   ├── RequestService.java
+│   ├── DepartmentService.java
+│   └── FeedbackService.java
+│
+├── repository
+│   ├── UserRepository.java
+│   ├── AdminRepository.java
+│   ├── EmployeeRepository.java
+│   ├── DepartmentRepository.java
+│   ├── ServiceRequestRepository.java
+│   ├── RequestAssignmentRepository.java
+│   ├── RequestUpdateRepository.java
+│   └── FeedbackRepository.java
+│
+├── entity
+│   ├── User.java
+│   ├── Admin.java
+│   ├── Employee.java
+│   ├── Department.java
+│   ├── IT.java
+│   ├── NonIT.java
+│   ├── HRFinance.java
+│   ├── ServiceRequest.java
+│   ├── RequestAssignment.java
+│   ├── RequestUpdate.java
+│   └── Feedback.java
+│
+└── dto  (optional, for API input/output)
+    ├── LoginDTO.java
+    ├── UserDTO.java
+    ├── ServiceRequestDTO.java
+    ├── FeedbackDTO.java
+    ├── AssignmentDTO.java
+    └── RequestUpdateDTO.java
 
