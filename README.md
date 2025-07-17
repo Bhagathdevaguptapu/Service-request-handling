@@ -175,12 +175,9 @@ classDiagram
     RequestUpdate "1" --> "1" User : updated by
 ```
 
-
-
-
-## 🧱 UML Class Diagram with Methods – Service Request System
-
+#######
 ```mermaid
+
 classDiagram
     class User {
         +int userID
@@ -190,40 +187,55 @@ classDiagram
         +string role
         +login()
         +logout()
-        +viewRequests()
     }
 
     class Admin {
-        +int adminID
-        +string adminName
-        +assignTechnician(requestID, techID)
+        +assignToDepartment(requestID, departmentID)
         +rejectRequest(requestID)
         +viewAllRequests()
     }
 
-    class Technician {
-        +int technicianID
-        +string techName
-        +updateStatus(requestID, status)
-        +addResolution(requestID, note)
+    class Employee {
+        +createRequest(title, description, category)
+        +viewRequestStatus(requestID)
+        +giveFeedback(requestID, feedback)
+    }
+
+    class Department {
+        +int departmentID
+        +string departmentName
+        +acceptRequest(requestID)
+        +updateStatus(requestID, newStatus)
         +closeRequest(requestID)
+    }
+
+    class IT {
+        +handleITSpecificIssue(requestID)
+    }
+
+    class NonIT {
+        +handleNonITSpecificIssue(requestID)
+    }
+
+    class HRFinance {
+        +handleHRFinanceIssue(requestID)
     }
 
     class ServiceRequest {
         +int requestID
         +string title
         +string description
-        +enum status
+        +enum category  <<IT, Non-IT, HR, Finance>>
+        +enum status    <<Pending, Accepted, In Progress, Closed, Rejected>>
         +datetime createdAt
-        +int userID
+        +int createdBy
         +submit()
-        +updateStatus(newStatus)
     }
 
     class RequestAssignment {
         +int assignmentID
         +int requestID
-        +int technicianID
+        +int departmentID
         +datetime assignedAt
     }
 
@@ -236,16 +248,30 @@ classDiagram
         +datetime updatedAt
     }
 
+    class Feedback {
+        +int feedbackID
+        +int requestID
+        +int userID
+        +string comment
+        +datetime submittedAt
+    }
+
+    %% Inheritance
+    Department <|-- IT
+    Department <|-- NonIT
+    Department <|-- HRFinance
+
     %% Relationships
-    User <|-- Technician
     User <|-- Admin
+    User <|-- Employee
     User "1" --> "many" ServiceRequest : creates
-    ServiceRequest "1" --> "0..1" RequestAssignment : has
-    RequestAssignment "1" --> "1" Technician : assigned to
+    ServiceRequest "1" --> "0..1" RequestAssignment : assigned to
+    RequestAssignment "1" --> "1" Department : handled by
     ServiceRequest "1" --> "many" RequestUpdate : has
     RequestUpdate "1" --> "1" User : updated by
+    ServiceRequest "1" --> "0..1" Feedback : receives
+    Feedback "1" --> "1" User : given by
 ```
-
 
 
 
