@@ -1,9 +1,7 @@
 # Service-Request-Handling-Project
 
 
-## Created Entities
-
-### Admin Controller
+## Created Entities & Admin Controller
 - View tickets by employee ID  
 - View all tickets raised by employees  
 - Cancel the ticket if needed  
@@ -29,9 +27,6 @@
 ---
 
 ## API Created in the Controllers
-
-### Admin Controller
-
 ✅ **1. Admin Login**  
 - **Method:** POST  
 - **URL:** `http://localhost:8080/admin/login`  
@@ -41,6 +36,58 @@
   "email": "admin@example.com",
   "password": "admin123"
 }
+✅ 2. Get Employee Tickets by ID
+
+Method: GET
+
+URL: http://localhost:8080/employee/tickets/1
+
+No request body needed — ID is passed as a path variable.
+
+✅ 3. Get All Employees and Their Tickets
+
+Method: GET
+
+URL: http://localhost:8080/employees/tickets
+
+No request body needed.
+
+✅ 4. Cancel Ticket
+
+Method: POST
+
+URL: http://localhost:8080/ticket/cancel
+
+Body (JSON):
+
+json
+Copy
+Edit
+{
+  "ticketId": 101,
+  "cancelReason": "Customer request"
+}
+Employee Controller
+✅ 5. Employee Login
+
+Method: POST
+
+URL: http://localhost:8080/employee/login
+
+Headers: Content-Type: application/json
+
+Body (JSON):
+
+json
+Copy
+Edit
+{
+  "email": "employee@example.com",
+  "password": "emp123"
+}
+vbnet
+Copy
+Edit
 ```
 
 
