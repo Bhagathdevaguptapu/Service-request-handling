@@ -1,3 +1,46 @@
+Employee Module-->
+1. Created Controller
+2. Created Repository
+3. Created Services
+4. Created DTO
+
+Created employee services based on the class diagram 
+These are the API URL to test 
+
+
+1. Raise Ticket
+URL: POST http://localhost:8080/raiseTicket
+json
+{
+  "employeeId": 1,
+  "title": "Unable to access HR portal",
+  "description": "I am unable to log into the HR system since this morning."
+}
+
+2. View My Tickets
+URL: GET http://localhost:8080/viewMyTickets/1
+No JSON body needed.
+→ Just replace 1 with the actual employee ID.
+
+3. Cancel My Ticket
+URL: POST http://localhost:8080/cancleMyTicket/1000
+No JSON body needed.
+→ Replace 1000 with the actual ticket ID you want to cancel.
+
+4. Give Feedback
+URL: POST http://localhost:8080/giveFeedback
+JSON Body:
+json
+{
+  "ticketId": 1000,
+  "feedbackText": "Great support from the IT team. Quick resolution!"
+}
+
+
+
+
+
+
 # Service-Request-Handling-Project
 
 ## Activity Diagram 
