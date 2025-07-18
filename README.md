@@ -10,9 +10,9 @@
 - Login  
 
 ### Employee Services (methods created and used in Admin Controller)
-- Get tickets of employee by ID `@Autowired` in Admin Controller  
-- Get all tickets of employees `@Autowired` in Admin Controller  
-- Cancel ticket `@Autowired` in Admin Controller  
+- Get tickets of employee by ID and `@Autowired` in Admin Controller  
+- Get all tickets of employees and `@Autowired` in Admin Controller  
+- Cancel ticket and `@Autowired` in Admin Controller  
 
 ### DTO Classes Created
 - `AdminDto`  
@@ -41,6 +41,7 @@
   "email": "admin@example.com",
   "password": "admin123"
 }
+```
 
 
 ## Activity Diagram 
