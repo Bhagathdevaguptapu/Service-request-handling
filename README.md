@@ -38,6 +38,8 @@ Body (JSON):
   "email": "admin@example.com",
   "password": "admin123"
 }
+
+
 ✅ 2. Get Employee Tickets by ID
 
 Method: GET
