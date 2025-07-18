@@ -346,3 +346,112 @@ com.yourcompany.servicerequest
     ├── AssignmentDTO.java
     └── RequestUpdateDTO.java
 
+
+
+
+
+Service-Request-Handling
+
+🎭 Actors
+Admin
+Employee
+IT Department
+Non-IT Department
+HR/Finance Departmen
+
+🎯 Functionality by Actor
+✅ Employee
+Can raise a ticket (issue/request).
+Can see the status of the ticket raised.
+Can cancel their own ticket if needed.
+Can give feed back after completing his ticket done
+
+
+🛠️ Admin
+Can view all tickets raised by employees.
+Can cancel any ticket if necessary.
+Can assign tickets to the respective department based on the issue type.
+Example: If the issue is related to laptop/software, assign it to the IT Department.
+Can view the status of all requests.
+
+
+💻 IT Department / Non-IT Department / HR/Finance Department
+Can only see the tickets assigned to their department.
+Once a ticket is assigned:
+After they get assigned, they can:
+Update status:
+Started
+In Progress
+Issue Resolved
+Add comments on the ticket (for tracking progress or details).
+Close the ticket if necessary (with a valid reason).
+
+ticket-management-system/
+│
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/yourcompany/ticket/
+│       │       ├── controller/
+│       │       │   ├── AdminController.java
+│       │       │   ├── EmployeeController.java
+│       │       │   └── DepartmentController.java
+│       │       │
+│       │       ├── service/
+│       │       │   ├── AdminService.java
+│       │       │   ├── EmployeeService.java
+│       │       │   ├── DepartmentService.java
+│       │       │   └── TicketService.java
+│       │       │
+│       │       ├── entity/
+│       │       │   ├── Admin.java
+│       │       │   ├── Employee.java
+│       │       │   ├── Department.java
+│       │       │   ├── Ticket.java
+│       │       │   ├── TicketComment.java
+│       │       │   └── TicketFeedback.java
+│       │       │
+│       │       ├── repository/
+│       │       │   ├── AdminRepository.java
+│       │       │   ├── EmployeeRepository.java
+│       │       │   ├── DepartmentRepository.java
+│       │       │   ├── TicketRepository.java
+│       │       │   ├── TicketCommentRepository.java
+│       │       │   └── TicketFeedbackRepository.java
+│       │       │
+│       │       ├── exception/
+│       │       │   ├── TicketNotFoundException.java
+│       │       │   ├── UserNotFoundException.java
+│       │       │   └── GlobalExceptionHandler.java
+│       │       │
+│       │       └── TicketManagementSystemApplication.java
+│       │
+│       └── resources/
+│           ├── application.properties
+│           └── data.sql / schema.sql (if needed)
+│
+└── pom.xml
+
+
+
+
+// AdminController.java
++ viewAllTickets()
++ assignTicketToDepartment(Long ticketId, Long departmentId)
++ cancelTicket(Long ticketId)
++ viewTicketStatus(Long ticketId)
+
+// EmployeeController.java
++ raiseTicket(TicketRequestDto dto)
++ viewMyTickets(Long employeeId)
++ cancelMyTicket(Long ticketId)
++ giveFeedback(Long ticketId, FeedbackDto dto)
+
+// DepartmentController.java
++ viewAssignedTickets(Long departmentId)
++ acceptTicket(Long ticketId)
++ updateTicketStatus(Long ticketId, TicketStatus status)
++ addComment(Long ticketId, String comment)
++ closeTicket(Long ticketId, String reason)
+
+
