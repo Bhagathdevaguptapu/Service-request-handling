@@ -1,6 +1,74 @@
 # Service-Request-Handling-Project
 
 manikanta_work123
+Created entities
+Admin Controller
+- view tickets by employee id 
+- view all tickets raised by employees
+- cancel the ticket if need
+- login 
+Employee Services (created methods in employee service and used)
+- tickets employee by id @autowired in admin controller
+- all tickets of employee @autowired in admin controller
+- cancel ticket @autowired in admin controller
+- created an dto class (admindto, employeedto, cancelticketrequestdto, loginrequest)
+Employee controller
+- login
+login sevice for admin contoller and employee controller
+
+API created in the controllers
+-------------------------------
+Admin controller
+---------------
+✅ 1. Admin Login
+Method: POST
+
+URL: http://localhost:8080/admin/login
+
+Body (JSON):
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+✅ 2. Get Employee Tickets by ID
+Method: GET
+
+URL: http://localhost:8080/employee/tickets/1
+
+No request body needed — id is passed as a path variable.
+
+✅ 3. Get All Employees and Their Tickets
+Method: GET
+
+URL: http://localhost:8080/employees/tickets
+
+No request body needed.
+
+✅ 4. Cancel Ticket
+Method: POST
+
+URL: http://localhost:8080/ticket/cancel
+
+Body (JSON):
+{
+  "ticketId": 101,
+  "cancelReason": "Customer request"
+}
+
+Employee controller
+------------------
+✅ Endpoint: Employee Login
+Method: POST
+
+URL: http://localhost:8080/employee/login
+
+Headers:
+Content-Type: application/json
+Body (JSON):
+{
+  "email": "employee@example.com",
+  "password": "emp123"
+}
 
 ## Activity Diagram 
 ```mermaid
