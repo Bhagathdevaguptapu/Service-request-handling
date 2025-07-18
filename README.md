@@ -26,12 +26,14 @@
 
 ---
 
-## API Created in the Controllers
-✅ **1. Admin Login**  
-- **Method:** POST  
-- **URL:** `http://localhost:8080/admin/login`  
-- **Body (JSON):**
-```json
+✅ 1. Admin Login
+
+Method: POST
+
+URL: http://localhost:8080/admin/login
+
+Body (JSON):
+
 {
   "email": "admin@example.com",
   "password": "admin123"
@@ -60,14 +62,10 @@ URL: http://localhost:8080/ticket/cancel
 
 Body (JSON):
 
-json
-Copy
-Edit
 {
   "ticketId": 101,
   "cancelReason": "Customer request"
 }
-Employee Controller
 ✅ 5. Employee Login
 
 Method: POST
@@ -78,16 +76,10 @@ Headers: Content-Type: application/json
 
 Body (JSON):
 
-json
-Copy
-Edit
 {
   "email": "employee@example.com",
   "password": "emp123"
 }
-vbnet
-Copy
-Edit
 ```
 
 
