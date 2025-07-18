@@ -1,75 +1,47 @@
 # Service-Request-Handling-Project
 
 
-Created entities
+## Created Entities
 
-Admin Controller
-- view tickets by employee id 
-- view all tickets raised by employees
-- cancel the ticket if need
-- login 
-Employee Services (created methods in employee service and used)
-- tickets employee by id @autowired in admin controller
-- all tickets of employee @autowired in admin controller
-- cancel ticket @autowired in admin controller
-- created an dto class (admindto, employeedto, cancelticketrequestdto, loginrequest)
-Employee controller
-- login
-login sevice for admin contoller and employee controller
+### Admin Controller
+- View tickets by employee ID  
+- View all tickets raised by employees  
+- Cancel the ticket if needed  
+- Login  
 
-API created in the controllers
--------------------------------
-Admin controller
----------------
-✅ 1. Admin Login
-Method: POST
+### Employee Services (methods created and used in Admin Controller)
+- Get tickets of employee by ID `@Autowired` in Admin Controller  
+- Get all tickets of employees `@Autowired` in Admin Controller  
+- Cancel ticket `@Autowired` in Admin Controller  
 
-URL: http://localhost:8080/admin/login
+### DTO Classes Created
+- `AdminDto`  
+- `EmployeeDto`  
+- `CancelTicketRequestDto`  
+- `LoginRequest`  
 
-Body (JSON):
+### Employee Controller
+- Login  
+
+### Login Service
+- Used for both Admin Controller and Employee Controller  
+
+---
+
+## API Created in the Controllers
+
+### Admin Controller
+
+✅ **1. Admin Login**  
+- **Method:** POST  
+- **URL:** `http://localhost:8080/admin/login`  
+- **Body (JSON):**
+```json
 {
   "email": "admin@example.com",
   "password": "admin123"
 }
-✅ 2. Get Employee Tickets by ID
-Method: GET
 
-URL: http://localhost:8080/employee/tickets/1
-
-No request body needed — id is passed as a path variable.
-
-✅ 3. Get All Employees and Their Tickets
-Method: GET
-
-URL: http://localhost:8080/employees/tickets
-
-No request body needed.
-
-✅ 4. Cancel Ticket
-Method: POST
-
-URL: http://localhost:8080/ticket/cancel
-
-Body (JSON):
-{
-  "ticketId": 101,
-  "cancelReason": "Customer request"
-}
-
-Employee controller
-------------------
-✅ Endpoint: Employee Login
-Method: POST
-
-URL: http://localhost:8080/employee/login
-
-Headers:
-Content-Type: application/json
-Body (JSON):
-{
-  "email": "employee@example.com",
-  "password": "emp123"
-}
 
 ## Activity Diagram 
 ```mermaid
