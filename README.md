@@ -1,3 +1,59 @@
+# Department Module-->
+
+  1. Created Controller
+  2. Created Repository
+  3. Created Services
+  4. Created DTO
+
+### Created employee services based on the class diagram These are the API URL to test:
+
+
+# 1. View Assigned Tickets
+URL:
+```GET http://localhost:8080/tickets/2```
+
+
+# 2. Accept Ticket
+URL:
+``` PUT http://localhost:8080/ticket/accept/1000```
+No JSON body needed
+
+# 3. Update Ticket Status
+URL:
+``` PUT http://localhost:8080/ticket/status```
+```
+JSON Body:
+{
+  "ticketId": 1000,
+  "status": "IN_PROGRESS"
+}
+```
+
+# 4. Add Comment
+URL:
+```POST http://localhost:8080/ticket/comment```
+```
+JSON Body:
+{
+  "ticketId": 1000,
+  "commentText": "We are currently working on this issue.",
+  "commenterName": "Network Team"
+}
+```
+
+# 5. Close Ticket
+URL:
+```PUT http://localhost:8080/ticket/close```
+```
+JSON Body:
+{
+  "ticketId": 1000,
+  "reason": "Issue resolved and verified"
+}
+```
+
+
+
 # Service-Request-Handling-Project
 
 
