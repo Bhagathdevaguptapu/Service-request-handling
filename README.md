@@ -43,6 +43,91 @@ json
 
 # Service-Request-Handling-Project
 
+## Created Entities & Admin Controller
+- View tickets by employee ID  
+- View all tickets raised by employees  
+- Cancel the ticket if needed  
+- Login  
+
+### Employee Services (methods created and used in Admin Controller)
+- Get tickets of employee by ID and `@Autowired` in Admin Controller  
+- Get all tickets of employees and `@Autowired` in Admin Controller  
+- Cancel ticket and `@Autowired` in Admin Controller  
+
+### DTO Classes Created
+- `AdminDto`  
+- `EmployeeDto`  
+- `CancelTicketRequestDto`  
+- `LoginRequest`  
+
+### Employee Controller
+- Login  
+
+### Login Service
+- Used for both Admin Controller and Employee Controller  
+
+---
+
+✅ 1. Admin Login
+
+Method: POST
+
+URL: http://localhost:8080/admin/login
+
+Body (JSON):
+
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+
+
+✅ 2. Get Employee Tickets by ID
+
+Method: GET
+
+URL: http://localhost:8080/employee/tickets/1
+
+No request body needed — ID is passed as a path variable.
+
+✅ 3. Get All Employees and Their Tickets
+
+Method: GET
+
+URL: http://localhost:8080/employees/tickets
+
+No request body needed.
+
+✅ 4. Cancel Ticket
+
+Method: POST
+
+URL: http://localhost:8080/ticket/cancel
+
+Body (JSON):
+
+{
+  "ticketId": 101,
+  "cancelReason": "Customer request"
+}
+
+✅ 5. Employee Login
+
+Method: POST
+
+URL: http://localhost:8080/employee/login
+
+Headers: Content-Type: application/json
+
+Body (JSON):
+
+{
+  "email": "employee@example.com",
+  "password": "emp123"
+}
+```
+
+
 ## Activity Diagram 
 ```mermaid
 flowchart TD
@@ -216,12 +301,9 @@ classDiagram
     RequestUpdate "1" --> "1" User : updated by
 ```
 
-
-
-
-## 🧱 UML Class Diagram with Methods – Service Request System
-
+#######
 ```mermaid
+
 classDiagram
     class User {
         +int userID
@@ -231,40 +313,55 @@ classDiagram
         +string role
         +login()
         +logout()
-        +viewRequests()
     }
 
     class Admin {
-        +int adminID
-        +string adminName
-        +assignTechnician(requestID, techID)
+        +assignToDepartment(requestID, departmentID)
         +rejectRequest(requestID)
         +viewAllRequests()
     }
 
-    class Technician {
-        +int technicianID
-        +string techName
-        +updateStatus(requestID, status)
-        +addResolution(requestID, note)
+    class Employee {
+        +createRequest(title, description, category)
+        +viewRequestStatus(requestID)
+        +giveFeedback(requestID, feedback)
+    }
+
+    class Department {
+        +int departmentID
+        +string departmentName
+        +acceptRequest(requestID)
+        +updateStatus(requestID, newStatus)
         +closeRequest(requestID)
+    }
+
+    class IT {
+        +handleITSpecificIssue(requestID)
+    }
+
+    class NonIT {
+        +handleNonITSpecificIssue(requestID)
+    }
+
+    class HRFinance {
+        +handleHRFinanceIssue(requestID)
     }
 
     class ServiceRequest {
         +int requestID
         +string title
         +string description
-        +enum status
+        +enum category  <<IT, Non-IT, HR, Finance>>
+        +enum status    <<Pending, Accepted, In Progress, Closed, Rejected>>
         +datetime createdAt
-        +int userID
+        +int createdBy
         +submit()
-        +updateStatus(newStatus)
     }
 
     class RequestAssignment {
         +int assignmentID
         +int requestID
-        +int technicianID
+        +int departmentID
         +datetime assignedAt
     }
 
@@ -277,16 +374,30 @@ classDiagram
         +datetime updatedAt
     }
 
+    class Feedback {
+        +int feedbackID
+        +int requestID
+        +int userID
+        +string comment
+        +datetime submittedAt
+    }
+
+    %% Inheritance
+    Department <|-- IT
+    Department <|-- NonIT
+    Department <|-- HRFinance
+
     %% Relationships
-    User <|-- Technician
     User <|-- Admin
+    User <|-- Employee
     User "1" --> "many" ServiceRequest : creates
-    ServiceRequest "1" --> "0..1" RequestAssignment : has
-    RequestAssignment "1" --> "1" Technician : assigned to
+    ServiceRequest "1" --> "0..1" RequestAssignment : assigned to
+    RequestAssignment "1" --> "1" Department : handled by
     ServiceRequest "1" --> "many" RequestUpdate : has
     RequestUpdate "1" --> "1" User : updated by
+    ServiceRequest "1" --> "0..1" Feedback : receives
+    Feedback "1" --> "1" User : given by
 ```
-
 
 
 
