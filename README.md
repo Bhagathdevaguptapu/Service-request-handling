@@ -1,6 +1,146 @@
-# Service-Request-Handling-Project
+## Service Request Handling
+## 🗂️ View Assigned Tickets for Department
 
-manikanta_work123
+## 🧑‍💼 Employee Login
+
+**URL:** `POST /employee/login`
+
+**Request JSON:**
+
+```json
+{
+  "email": "employee@example.com",
+  "password": "emppass123"
+}
+```
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Login successful"
+}
+```
+
+---
+
+## 🎫 Raise a New Ticket
+
+**URL:** `POST /raiseTicket`
+
+**Request JSON:**
+
+```json
+{
+  "employeeId": 101,
+  "title": "System crash",
+  "description": "My desktop crashes frequently"
+}
+```
+
+**Response Example (Success):**
+
+```json
+{
+  "status": "success",
+  "message": "Ticket raised successfully."
+}
+```
+
+**Response Example (Failure):**
+
+```json
+{
+  "status": "failed",
+  "message": "Title can't be null"
+}
+```
+
+---
+
+## 📋 View My Tickets
+
+**URL:** `GET /viewMyTickets/{id}`  
+Replace `{id}` with the Employee ID.
+
+**Example:** `GET /viewMyTickets/101`
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "data": {
+    "employeeId": 101,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "tickets": [
+      {
+        "ticketId": 1,
+        "title": "System crash",
+        "description": "My desktop crashes frequently",
+        "status": "RAISED"
+      }
+    ]
+  }
+}
+```
+
+---
+
+## ❌ Cancel My Ticket
+
+**URL:** `POST /cancleMyTicket/{id}`  
+Replace `{id}` with the Ticket ID.
+
+**Example:** `POST /cancleMyTicket/5`
+
+**Response Example (Success):**
+
+```json
+{
+  "status": "success",
+  "message": "Ticket cancelled successfully."
+}
+```
+
+**Response Example (Failure):**
+
+```json
+{
+  "status": "failed",
+  "message": "Ticket ID not found."
+}
+```
+
+---
+
+## 💬 Give Feedback on Ticket
+
+**URL:** `POST /giveFeedback`
+
+**Request JSON:**
+
+```json
+{
+  "ticketId": 4,
+  "feedbackText": "Issue resolved quickly, thanks!"
+}
+```
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Feedback submitted successfully."
+}
+```
+
+---
+
+
 
 ## Activity Diagram 
 ```mermaid
