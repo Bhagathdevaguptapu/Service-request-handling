@@ -1,6 +1,137 @@
+## Service Request Handling
+## 🗂️ View Assigned Tickets for Department
+
+**URL:** `GET /tickets/{departmentId}`  
+Replace `{departmentId}` with the department ID.
+
+**Example:** `GET /tickets/2`
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "ticketId": 1,
+      "title": "Email not working",
+      "description": "Unable to send emails",
+      "status": "ASSIGNED"
+    },
+    {
+      "ticketId": 2,
+      "title": "VPN access issue",
+      "description": "Cannot connect to VPN",
+      "status": "ASSIGNED"
+    }
+  ]
+}
+```
+
+---
+
+## ✅ Accept a Ticket
+
+**URL:** `PUT /ticket/accept/{ticketId}`  
+Replace `{ticketId}` with the ticket ID.
+
+**Example:** `PUT /ticket/accept/5`
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Ticket ID 5 has been accepted."
+}
+```
+
+---
+
+## 🔁 Update Ticket Status
+
+**URL:** `PUT /ticket/status`
+
+**Request JSON:**
+
+```json
+{
+  "ticketId": 3,
+  "newStatus": "IN_PROGRESS"
+}
+```
+
+**Response Example (Success):**
+
+```json
+{
+  "status": "success",
+  "message": "Ticket status updated successfully."
+}
+```
 # Service-Request-Handling-Project
 
-manikanta_work123
+**Response Example (Failure):**
+
+```json
+{
+  "status": "failed",
+  "message": "Invalid status value provided."
+}
+```
+
+---
+
+## 💬 Add Comment to a Ticket
+
+**URL:** `POST /ticket/comment`
+
+**Request JSON:**
+
+```json
+{
+  "ticketId": 4,
+  "commentedBy": "IT Staff",
+  "comment": "We are currently investigating the issue."
+}
+```
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Comment added to ticket successfully."
+}
+```
+
+---
+
+## 🔒 Close a Ticket
+
+**URL:** `PUT /ticket/close`
+
+**Request JSON:**
+
+```json
+{
+  "ticketId": 6,
+  "closedBy": "IT Department",
+  "closeReason": "Issue resolved and confirmed by user."
+}
+```
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Ticket closed successfully."
+}
+```
+
+---
+
 
 ## Activity Diagram 
 ```mermaid
