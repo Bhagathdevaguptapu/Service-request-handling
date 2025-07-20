@@ -1,6 +1,142 @@
 # Service-Request-Handling-Project
 
-manikanta_work123
+## 🔐 Admin Login
+
+**URL:** `POST /admin/login`
+
+**Request JSON:**
+
+```json
+{
+  "email": "admin@example.com",
+  "password": "adminpass"
+}
+```
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Login successful"
+}
+```
+
+---
+
+## 📄 Get Tickets Raised by Specific Employee
+
+**URL:** `GET /admin/employee/tickets/{id}`  
+Replace `{id}` with the employee ID.
+
+**Example:** `GET /admin/employee/tickets/101`
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "data": {
+    "employeeId": 101,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "tickets": [
+      {
+        "ticketId": 1,
+        "title": "Login Issue",
+        "description": "Cannot login to portal",
+        "status": "RAISED"
+      }
+    ]
+  }
+}
+```
+
+---
+
+## 📋 Get All Employee Tickets
+
+**URL:** `GET /admin/employees/tickets`
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "employeeId": 101,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "tickets": [
+        {
+          "ticketId": 1,
+          "title": "Login Issue",
+          "status": "RAISED"
+        }
+      ]
+    },
+    {
+      "employeeId": 102,
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "tickets": []
+    }
+  ]
+}
+```
+
+---
+
+## ❌ Cancel a Ticket
+
+**URL:** `POST /admin/ticket/cancel`
+
+**Request JSON:**
+
+```json
+{
+  "ticketId": 5,
+  "cancelReason": "User requested cancellation"
+}
+```
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Ticket with ID 5 has been cancelled."
+}
+```
+
+---
+
+## 🏷️ Assign Ticket to Department
+
+**URL:** `POST /admin/assign-ticket`
+
+**Request JSON:**
+
+```json
+{
+  "ticketId": 3,
+  "departmentId": 2
+}
+```
+
+**Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Ticket assigned to department successfully."
+}
+```
+
+---
+
+
 
 ## Activity Diagram 
 ```mermaid
