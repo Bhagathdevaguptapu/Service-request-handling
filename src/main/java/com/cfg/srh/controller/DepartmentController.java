@@ -19,7 +19,7 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     @GetMapping("/department/tickets/{departmentId}")
-    public ResponseData viewAssignedTickets(@PathVariable Integer departmentId) {
+    public ResponseData viewAssignedTickets(@PathVariable("departmentId") Integer departmentId) {
         ResponseData response = new ResponseData();
         List<Ticket> tickets = departmentService.viewAssignedTicketsByID(departmentId);
         if (tickets != null && !tickets.isEmpty()) {
@@ -33,7 +33,7 @@ public class DepartmentController {
     }
 
     @PutMapping("/department/ticket/accept/{ticketId}")
-    public ResponseData acceptTicket(@PathVariable Integer ticketId) {
+    public ResponseData acceptTicket(@PathVariable("ticketId" Integer ticketId) {
         ResponseData response = new ResponseData();
         String result = departmentService.acceptTicketByID(ticketId);
         response.setStatus("success");
