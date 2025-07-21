@@ -1,138 +1,44 @@
 ## Service Request Handling
-## 🗂️ View Assigned Tickets for Department
+# 🛠️ Department Service APIs – Service Request Handling System
 
-**URL:** `GET /tickets/{departmentId}`  
-Replace `{departmentId}` with the department ID.
-
-**Example:** `GET /tickets/2`
-
-**Response Example:**
-
-```json
-{
-  "status": "success",
-  "data": [
-    {
-      "ticketId": 1,
-      "title": "Email not working",
-      "description": "Unable to send emails",
-      "status": "ASSIGNED"
-    },
-    {
-      "ticketId": 2,
-      "title": "VPN access issue",
-      "description": "Cannot connect to VPN",
-      "status": "ASSIGNED"
-    }
-  ]
-}
-```
+This module provides endpoints for departments to manage support tickets. It allows departments to view, accept, update, comment on, and close service tickets.
 
 ---
 
-## ✅ Accept a Ticket
+## 📌 API Endpoints Overview
 
-**URL:** `PUT /ticket/accept/{ticketId}`  
-Replace `{ticketId}` with the ticket ID.
-
-**Example:** `PUT /ticket/accept/5`
-
-**Response Example:**
-
-```json
-{
-  "status": "success",
-  "message": "Ticket ID 5 has been accepted."
-}
-```
+| Method | Endpoint                                     | Description                                  |
+|--------|----------------------------------------------|----------------------------------------------|
+| GET    | `/department/tickets/{departmentId}`         | View all tickets assigned to a department    |
+| PUT    | `/department/ticket/accept/{ticketId}`       | Accept a specific ticket                     |
+| PUT    | `/department/ticket/status`                  | Update status of a ticket                    |
+| POST   | `/department/ticket/comment`                 | Add a comment to a ticket                    |
+| PUT    | `/department/ticket/close`                   | Close a ticket with a reason                 |
 
 ---
 
-## 🔁 Update Ticket Status
-
-**URL:** `PUT /ticket/status`
-
-**Request JSON:**
-
-```json
+## STATUS JSON CODE
+```
 {
-  "ticketId": 3,
-  "newStatus": "IN_PROGRESS"
+  "ticketId": 101,
+  "status": "IN_PROGRESS"
 }
 ```
-
-**Response Example (Success):**
-
-```json
+## COMMENT JSON CODE
+```
 {
-  "status": "success",
-  "message": "Ticket status updated successfully."
+  "ticketId": 102,
+  "commenterName": "IT Department",
+  "commentText": "Issue diagnosed, working on a solution."
 }
 ```
-# Service-Request-Handling-Project
-
-**Response Example (Failure):**
-
-```json
+## CLOSE JSON CODE
+```
 {
-  "status": "failed",
-  "message": "Invalid status value provided."
+  "ticketId": 103,
+  "reason": "Issue fixed and confirmed by user."
 }
 ```
-
----
-
-## 💬 Add Comment to a Ticket
-
-**URL:** `POST /ticket/comment`
-
-**Request JSON:**
-
-```json
-{
-  "ticketId": 4,
-  "commentedBy": "IT Staff",
-  "comment": "We are currently investigating the issue."
-}
-```
-
-**Response Example:**
-
-```json
-{
-  "status": "success",
-  "message": "Comment added to ticket successfully."
-}
-```
-
----
-
-## 🔒 Close a Ticket
-
-**URL:** `PUT /ticket/close`
-
-**Request JSON:**
-
-```json
-{
-  "ticketId": 6,
-  "closedBy": "IT Department",
-  "closeReason": "Issue resolved and confirmed by user."
-}
-```
-
-**Response Example:**
-
-```json
-{
-  "status": "success",
-  "message": "Ticket closed successfully."
-}
-```
-
----
-
-
 ## Activity Diagram 
 ```mermaid
 flowchart TD
@@ -405,52 +311,6 @@ classDiagram
 ```
 
 
-
-
-
-
-
-## 🗄️ SQL Schema – Service Request Handling System
-
-```sql
--- Users Table
-CREATE TABLE Users (
-    UserID INT PRIMARY KEY AUTO_INCREMENT,
-    UserName VARCHAR(100),
-    Role ENUM('User', 'Admin', 'Technician'),
-    Email VARCHAR(100),
-    Password VARCHAR(100)
-);
-
--- Service Requests Table
-CREATE TABLE ServiceRequests (
-    RequestID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
-    Title VARCHAR(100),
-    Description TEXT,
-    Status ENUM('New', 'Assigned', 'In Progress', 'Resolved', 'Closed', 'Rejected'),
-    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-);
-
--- Request Assignments Table
-CREATE TABLE RequestAssignments (
-    AssignmentID INT PRIMARY KEY AUTO_INCREMENT,
-    RequestID INT,
-    TechnicianID INT,
-    AssignedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (RequestID) REFERENCES ServiceRequests(RequestID),
-    FOREIGN KEY (TechnicianID) REFERENCES Users(UserID)
-);
-
--- Request Updates Table
-CREATE TABLE RequestUpdates (
-    UpdateID INT PRIMARY KEY AUTO_INCREMENT,
-    RequestID INT,
-    UpdatedBy INT,
-    UpdateNote TEXT,
-    Status ENUM('Assigned', 'In Progress', 'Resolved', 'Closed'),
-    UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (RequestID) REFERENCES ServiceRequests(RequestID),
     FOREIGN KEY (UpdatedBy) REFERENCES Users(UserID)
 );
