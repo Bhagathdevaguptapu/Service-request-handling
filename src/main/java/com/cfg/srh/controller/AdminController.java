@@ -3,6 +3,7 @@ package com.cfg.srh.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,84 +18,90 @@ import com.cfg.srh.exceptions.InvalidDepartmentException;
 import com.cfg.srh.services.AdminService;
 import com.cfg.srh.services.LoginService;
 
+@Controller
 @RestController
 public class AdminController {
 
-    @Autowired
-    private LoginService loginservice;
+	@GetMapping("/")
+	public String welcome() {
+		return "index";
+	}
 
-    @Autowired
-    private AdminService adminservice;
+	@Autowired
+	private LoginService loginservice;
 
-    @PostMapping("/admin/login")
-    public ResponseData adminLogin(@RequestBody LoginRequest loginRequest) {
-        ResponseData response = new ResponseData();
-        String result = loginservice.loginAdmin(loginRequest.getEmail(), loginRequest.getPassword());
+	@Autowired
+	private AdminService adminservice;
 
-        if ("Login successful".equalsIgnoreCase(result)) {
-            response.setStatus("success");
-            response.setMessage(result);
-        } else {
-            response.setStatus("failed");
-            response.setMessage(result);
-        }
+	@PostMapping("/admin/login")
+	public ResponseData adminLogin(@RequestBody LoginRequest loginRequest) {
+		ResponseData response = new ResponseData();
+		String result = loginservice.loginAdmin(loginRequest.getEmail(), loginRequest.getPassword());
 
-        return response;
-    }
+		if ("Login successful".equalsIgnoreCase(result)) {
+			response.setStatus("success");
+			response.setMessage(result);
+		} else {
+			response.setStatus("failed");
+			response.setMessage(result);
+		}
 
-    @GetMapping("admin/employee/tickets/{id}")
-    public ResponseData getEmployeeTickets(@PathVariable int id) {
-        ResponseData response = new ResponseData();
-        EmployeeDTO dto = adminservice.fetchEmployeeTicketsById(id);
+		return response;
+	}
 
-        if (dto != null) {
-            response.setStatus("success");
-            response.setData(dto);
-        } else {
-            response.setStatus("failed");
-            response.setMessage("Employee not found or no tickets available.");
-        }
+	@GetMapping("admin/employee/tickets/{id}")
+	public ResponseData getEmployeeTickets(@PathVariable int id) {
+		ResponseData response = new ResponseData();
+		EmployeeDTO dto = adminservice.fetchEmployeeTicketsById(id);
 
-        return response;
-    }
+		if (dto != null) {
+			response.setStatus("success");
+			response.setData(dto);
+		} else {
+			response.setStatus("failed");
+			response.setMessage("Employee not found or no tickets available.");
+		}
 
-    @GetMapping("admin/employees/tickets")
-    public ResponseData getAllEmployeeTickets() {
-        ResponseData response = new ResponseData();
-        List<EmployeeDTO> list = adminservice.fetchAllEmployeeTickets();
+		return response;
+	}
 
-        if (list != null && !list.isEmpty()) {
-            response.setStatus("success");
-            response.setData(list);
-        } else {
-            response.setStatus("failed");
-            response.setMessage("No employee ticket records found.");
-        }
+	@GetMapping("admin/employees/tickets")
+	public ResponseData getAllEmployeeTickets() {
+		ResponseData response = new ResponseData();
+		List<EmployeeDTO> list = adminservice.fetchAllEmployeeTickets();
 
-        return response;
-    }
+		if (list != null && !list.isEmpty()) {
+			response.setStatus("success");
+			response.setData(list);
+		} else {
+			response.setStatus("failed");
+			response.setMessage("No employee ticket records found.");
+		}
 
-    @PostMapping("admin/ticket/cancel")
-    public ResponseData cancelTicket(@RequestBody CancelTicketRequestDTO ticketRequest) {
-        ResponseData response = new ResponseData();
-        adminservice.cancelTicketById(ticketRequest.getTicketId(), ticketRequest.getCancelReason());
-        response.setStatus("success");
-        response.setMessage("Ticket with ID " + ticketRequest.getTicketId() + " has been cancelled.");
-        return response;
-    }
+		return response;
+	}
 
-    @PostMapping("admin/assign-ticket")
-    public ResponseData assignTicketToDepartment(@RequestBody AssignTicketRequest request) {
-        ResponseData response = new ResponseData();
-        try {
-            String result = adminservice.assignTicketToDepartment(request.getTicketId(), request.getDepartmentId());
-            response.setStatus("success");
-            response.setMessage(result);
-        } catch (InvalidDepartmentException e) {
-            response.setStatus("failed");
-            response.setMessage(e.getMessage());
-        }
-        return response;
-    }
+	@PostMapping("admin/ticket/cancel")
+	public ResponseData cancelTicket(@RequestBody CancelTicketRequestDTO ticketRequest) {
+		ResponseData response = new ResponseData();
+		adminservice.cancelTicketById(ticketRequest.getTicketId(), ticketRequest.getCancelReason());
+		response.setStatus("success");
+		response.setMessage("Ticket with ID " + ticketRequest.getTicketId() + " has been cancelled.");
+		return response;
+	}
+
+	@PostMapping("admin/assign-ticket")
+	public ResponseData assignTicketToDepartment(@RequestBody AssignTicketRequest request) {
+		ResponseData response = new ResponseData();
+		try {
+			String result = adminservice.assignTicketToDepartment(request.getTicketId(), request.getDepartmentId());
+			response.setStatus("success");
+			response.setMessage(result);
+		} catch (InvalidDepartmentException e) {
+			response.setStatus("failed");
+			response.setMessage(e.getMessage());
+		}
+		return response;
+	}
 
 }
