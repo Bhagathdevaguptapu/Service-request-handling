@@ -1,6 +1,179 @@
-# Service-Request-Handling-Project
+# 🛠️ Service Request Handling System
 
-manikanta_work123
+Developed by:
+
+Admin Module: K Manikanta Reddy
+
+Employee Module:M Lahari
+
+Department Module:D Bhagath Krishna Vamsi
+
+
+# 📖 Project Overview
+The Service Request Handling System is a centralized platform that enables employees to raise service tickets, admins to assign and manage them, and departments to act on those tickets. The system supports:
+
+Ticket creation, tracking, and cancellation by employees
+
+Ticket assignment and oversight by admins
+
+Ticket resolution, commenting, and closing by departments
+
+This microservice-style project promotes modular responsibility with secure login for different user roles.
+
+# ⚙️ Modules & Responsibilities
+## 🧑‍💼 Employee Module (Lahari)
+Login
+
+Raise a service request
+
+View my tickets
+
+Cancel my ticket
+
+Provide feedback on resolved ticket
+
+## 🧑‍💻 Department Module (Bhagath)
+View assigned tickets
+
+Accept ticket
+
+Update ticket status
+
+Comment on tickets
+
+Close tickets with reason
+
+## 👨‍💼 Admin Module (Manikanta)
+Admin login
+
+View all employee tickets
+
+View tickets by employee
+
+Assign ticket to department
+
+Cancel any ticket on behalf of user
+
+# 🔐 Authentication Endpoints
+## 🧑 Employee Login
+**POST**  ``` /employee/login```
+
+json
+```
+{
+  "email": "employee@example.com",
+  "password": "emppass123"
+}
+```
+## 👨 Admin Login
+**POST** ```/admin/login```
+
+json
+```
+{
+  "email": "admin@example.com",
+  "password": "adminpass"
+}
+```
+# 🎫 Employee Services
+## Raise a New Ticket
+**POST** ```/raiseTicket```
+
+json
+```
+{
+  "employeeId": 101,
+  "title": "System crash",
+  "description": "My desktop crashes frequently"
+}
+```
+
+## View My Tickets
+GET ```/viewMyTickets/{id}```
+
+
+
+## Cancel My Ticket
+**POST** ```/cancleMyTicket/{id}```
+
+
+## Submit Feedback
+**POST** ``` /giveFeedback```
+
+json
+```
+{
+  "ticketId": 4,
+  "feedbackText": "Issue resolved quickly, thanks!"
+}
+```
+# 🛠️ Department Services
+## View Tickets by Department
+GET ```/department/tickets/{departmentId}```
+
+## Accept a Ticket
+PUT ```/department/ticket/accept/{ticketId}```
+
+## Update Ticket Status
+PUT ```/department/ticket/status```
+
+Request JSON:
+
+json
+```
+{
+  "ticketId": 101,
+  "status": "IN_PROGRESS"
+}
+```
+## Add Comment to Ticket
+**POST** ```/department/ticket/comment```
+
+json
+```
+{
+  "ticketId": 102,
+  "commenterName": "IT Department",
+  "commentText": "Issue diagnosed, working on a solution."
+}
+```
+## Close Ticket
+PUT ```/department/ticket/close```
+
+json
+```
+{
+  "ticketId": 103,
+  "reason": "Issue fixed and confirmed by user."
+}
+```
+# 🛡️ Admin Services
+## View Tickets by Employee
+GET ```/admin/employee/tickets/{id}```
+
+## View All Employee Tickets
+GET ```/admin/employees/tickets```
+
+## Assign Ticket to Department
+**POST** ```/admin/assign-ticket```
+
+json
+```
+{
+  "ticketId": 3,
+  "departmentId": 2
+}
+```
+## Cancel a Ticket
+**POST** ```/admin/ticket/cancel```
+
+json
+```
+{
+  "ticketId": 5,
+  "cancelReason": "User requested cancellation"
+}
+```
 
 ## Activity Diagram 
 ```mermaid
@@ -120,62 +293,6 @@ graph TD
 
 ## UML Class Diagram
 
-```mermaid
-classDiagram
-    class User {
-        +int userID
-        +string userName
-        +string email
-        +string password
-        +string role
-    }
-
-    class ServiceRequest {
-        +int requestID
-        +string title
-        +string description
-        +enum status
-        +datetime createdAt
-        +int userID
-    }
-
-    class RequestAssignment {
-        +int assignmentID
-        +int requestID
-        +int technicianID
-        +datetime assignedAt
-    }
-
-    class Technician {
-        +int technicianID
-        +string techName
-    }
-
-    class Admin {
-        +int adminID
-        +string adminName
-    }
-
-    class RequestUpdate {
-        +int updateID
-        +int requestID
-        +int updatedBy
-        +string updateNote
-        +enum status
-        +datetime updatedAt
-    }
-
-    %% Relationships
-    User <|-- Technician
-    User <|-- Admin
-    User "1" --> "many" ServiceRequest : creates
-    ServiceRequest "1" --> "0..1" RequestAssignment : has
-    RequestAssignment "1" --> "1" Technician : assigned to
-    ServiceRequest "1" --> "many" RequestUpdate : has
-    RequestUpdate "1" --> "1" User : updated by
-```
-
-#######
 ```mermaid
 
 classDiagram
