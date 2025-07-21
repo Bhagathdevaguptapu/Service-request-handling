@@ -310,8 +310,3 @@ classDiagram
     Feedback "1" --> "1" User : given by
 ```
 
-
-    FOREIGN KEY (RequestID) REFERENCES ServiceRequests(RequestID),
-    FOREIGN KEY (UpdatedBy) REFERENCES Users(UserID)
-);
-
