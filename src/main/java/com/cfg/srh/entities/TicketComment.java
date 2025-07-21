@@ -24,9 +24,10 @@ public class TicketComment {
     private Integer commentId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ticket_id", referencedColumnName = "ticketId")  // FIXED HERE
+    @JoinColumn(name = "ticket_id", referencedColumnName = "ticketId")
     @JsonBackReference
     private Ticket ticket;
+
 
     private String commenterRole;
     private String commenterName;

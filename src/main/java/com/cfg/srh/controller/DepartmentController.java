@@ -18,7 +18,7 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    @GetMapping("/tickets/{departmentId}")
+    @GetMapping("/department/tickets/{departmentId}")
     public ResponseData viewAssignedTickets(@PathVariable Integer departmentId) {
         ResponseData response = new ResponseData();
         List<Ticket> tickets = departmentService.viewAssignedTicketsByID(departmentId);
@@ -32,7 +32,7 @@ public class DepartmentController {
         return response;
     }
 
-    @PutMapping("/ticket/accept/{ticketId}")
+    @PutMapping("/department/ticket/accept/{ticketId}")
     public ResponseData acceptTicket(@PathVariable Integer ticketId) {
         ResponseData response = new ResponseData();
         String result = departmentService.acceptTicketByID(ticketId);
@@ -41,7 +41,7 @@ public class DepartmentController {
         return response;
     }
 
-    @PutMapping("/ticket/status")
+    @PutMapping("/department/ticket/status")
     public ResponseData updateTicketStatus(@RequestBody UpdateStatusDTO dto) {
         ResponseData response = new ResponseData();
         try {
@@ -56,7 +56,7 @@ public class DepartmentController {
     }
 
 
-    @PostMapping("/ticket/comment")
+    @PostMapping("/department/ticket/comment")
     public ResponseData addComment(@RequestBody CommentDTO dto) {
         ResponseData response = new ResponseData();
         String result = departmentService.addComment(dto);
@@ -65,7 +65,7 @@ public class DepartmentController {
         return response;
     }
 
-    @PutMapping("/ticket/close")
+    @PutMapping("/department/ticket/close")
     public ResponseData closeTicket(@RequestBody CloseTicketDTO dto) {
         ResponseData response = new ResponseData();
         String result = departmentService.closeTicket(dto);

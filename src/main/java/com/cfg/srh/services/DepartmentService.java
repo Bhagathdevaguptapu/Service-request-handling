@@ -1,6 +1,7 @@
 package com.cfg.srh.services;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ import com.cfg.srh.repository.TicketCommentRepository;
 import com.cfg.srh.repository.TicketRepository;
 import com.cfg.srh.repository.TicketStatusHistoryRepository;
 
-@Service
+@Service	
 public class DepartmentService {
 	
 	@Autowired
@@ -75,21 +76,27 @@ public class DepartmentService {
     }
 
 
-
     public String addComment(CommentDTO dto) {
         Optional<Ticket> ticketOpt = ticketRepository.findById(dto.getTicketId());
         if (ticketOpt.isPresent()) {
+            Ticket ticket = ticketOpt.get();
+
             TicketComment comment = new TicketComment();
-            comment.setTicket(ticketOpt.get());
+            comment.setTicket(ticket);
             comment.setCommentText(dto.getCommentText());
             comment.setCommenterName(dto.getCommenterName());
             comment.setCommenterRole("DEPARTMENT");
+            if (ticket.getComments() == null) {
+                ticket.setComments(new ArrayList<>());
+            }
+            ticket.getComments().add(comment); 
+
             commentRepo.save(comment);
+            
             return "Comment added successfully";
         }
         return "Ticket not found";
     }
-
 
     public String closeTicket(CloseTicketDTO dto) {
         Optional<Ticket> ticketOpt = ticketRepository.findById(dto.getTicketId());
@@ -105,8 +112,6 @@ public class DepartmentService {
         return "Ticket not found";
     }
 
-
-	
 	private void saveStatusHistory(Ticket ticket, String status, String updatedBy) {
 	    TicketStatusHistory history = new TicketStatusHistory();
 	    history.setTicket(ticket);
@@ -115,8 +120,5 @@ public class DepartmentService {
 	    history.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 	    statusHistoryRepo.save(history);
 	}
-
-	
-
 	
 }
