@@ -1,12 +1,12 @@
 # 🛠️ Service Request Handling System
 
-Developed by:
+### Developed by:
 
-Admin Module: K Manikanta Reddy
+**Admin Module**: _K Manikanta Reddy_
 
-Employee Module:M Lahari
+**Employee Module**: _M Lahari_
 
-Department Module:D Bhagath Krishna Vamsi
+**Department Module**: _D Bhagath Krishna Vamsi_
 
 
 # 📖 Project Overview
