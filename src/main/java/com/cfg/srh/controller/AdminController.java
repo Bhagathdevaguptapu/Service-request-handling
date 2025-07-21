@@ -38,7 +38,7 @@ public class AdminController {
 		ResponseData response = new ResponseData();
 		String result = loginservice.loginAdmin(loginRequest.getEmail(), loginRequest.getPassword());
 
-		if ("Login successful".equalsIgnoreCase(result)) {
+		if ("AdminDTO login successfully".equalsIgnoreCase(result)) {
 			response.setStatus("success");
 			response.setMessage(result);
 		} else {
